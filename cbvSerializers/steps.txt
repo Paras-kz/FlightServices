@@ -1,0 +1,68 @@
+for CLASS based VIEWS:-
+
+in views.py-
+    import APIView
+    create class instead of fn and inherit APIView in it
+
+        For non- pk operations-
+            def the get, post fns like-
+                <def get(self,request):>
+        For Pk oprns-
+            def custom fn which could be reused
+            <def get(self,request,pk):>
+configure urls.py-
+    import the views and also extend <.as_view> in views name
+    
+    as_view is a fn(class method) which will connect Myview class with its url.
+    as_view returns a callable view that takes a request and return a response.
+    <path('students/',views.StudentList.as_view()),>
+
+Using Mixins-
+    It has inbuilt mixins classes which we extend in the main classes
+        These classes have it's handler and action methods/fns-
+        #for using mixinsbased views-
+        #mixin classes- mixins.ListModelMixin,CreateMM,RetrieveMM,UpdateMM,DestryMM
+        #handler mthds- get,                      post,  get,      put,  delete
+        #action methds- list,                   create, retrieve, update,destroy 
+
+Using Generics-
+    It also has inbuilt Generics classes which we extend in the main classes
+        In this we don't even hv to call handler and action methods
+        generics classes- for non-pk- "generics.ListCreateAPIView", for pk request- "RetrieveUpdateDestroyAPIView"
+        we just mention the queryset, and serializer class for both pk and non pk class.
+
+Using ModelviewSets-
+    In this extension clas we only have to write queyset and serializer class only once, and not for non pk operations
+        in urls use router to register the viewset 
+    
+
+PAGINATION- used to limit how much record we want in 1 page
+    In settings.py provide following property To configure pagination property Globally in all views.
+        REST_FRAMEWORK={
+        'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',
+        'PAGE_SIZE':2
+        }
+    #for making custom local Pagination class for some specific views we have to create class and
+     pass in the tpe of pagination inside that we can give our new page size
+
+        like pagenumberpagination we also have limitoffsetpagination and cursorpagination
+            limit=page size, and offset is no. of record we want to omit
+
+Filtering-
+    in Settings.py installed apps add-
+        'django_filters',       
+    in views.py-
+        <from django_filters.rest_framework import DjangoFilterBackend>
+        now use property <filter_backends=[DjangoFilterBackend]>
+        Above line will create filterset object of DjangoFilterBackend] class which will be ready for Filtering
+        and in our api it will create a filter block with filteret fields available
+    
+        To create Search fields-
+            from rest_framework import filters
+                filter_backends=[filters.SearchFilter]
+                search_fields=['name','id']
+                we can use various symbols to specify serching criteria-
+                   '^'-start with, '='-exact match, '@'- Full text only in Postgres, '$'- Regex
+
+                Use filter_backends=[filters.OrderingFilter]
+                    to do multiple ordering, in url type field name with +, - sign

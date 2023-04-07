@@ -1,0 +1,17 @@
+Authentication- in views.py
+    from rest_framework.authentication import BasicAuthentication
+    from rest_framework.permissions import IsAuthenticated
+
+    set these property in views classes-
+        authentication_classes=[BasicAuthentication] # to check if credentials are right
+        permission_classes=[IsAuthenticated] # to check if user is authenticated
+Authorisations-
+    from permission import "DjangoModelPermissions" and add it to permission_classes
+    now this will let us assign custom permsn to non-admin users.
+
+To apply authentication globally-
+    in settings.py- create property
+        REST_FRAMEWORK={
+    'DEFAULT_AUTHENTICATION_CLASSES':['rest_framework.authentication.BasicAuthentication'],
+    'DEFAULT_PERMISSION_CLASSES':['rest_framework.permissions.IsAuthenticated','rest_framework.permissions.DjangoModelPermissions']
+}

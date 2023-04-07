@@ -1,0 +1,54 @@
+-start project and app
+    install django, django restframework
+    <mkdir> for a folder
+    <django-admin startproject> project name
+    <python manage.py startapp> app name
+    register app in <setting.py>'s <installed apps>
+    *** and add <rest_framework> in <installed apps> in <settings.py>
+
+-create a view(a restful endpoint)
+    def a fn basd view with return type <JsonResponse> (jr)
+    intialize a dict and pass it as args in jr
+    jr serializes the dict to json object
+
+-Configure url for view(projectlevel)
+    in <firstProject> <urls.py> 
+    define a url path to which above view will return jr
+
+-runserver and test endpoint
+    goto the path DJANGOREST/firstProject then
+    <python manage.py runserver> -- to atart server
+    <ctrl+c. to stop server
+    hit url and test
+
+-app level url
+    # 'Create' urls.py in firstApp
+    def the url there
+    in project urls.py include the ourapp.urls to app path
+    <path('firstApp/',include('firstApp.urls'))>
+
+-create Model in app's Models.py 
+    (model class is a table in db) 
+    (it's vars are colums of table and it's object will be rows i.e the records)
+    create a class Employee(models.model) and inside define the variables
+
+-Configure Database
+    in settings. py -> Databases -> engine->
+    remove sqllte 3 and add mysql,
+    add user, dbname, password
+
+    Open mysql workbench-
+        create a db with same name as above
+        use that db and u can see all tables in it
+-Make 'view's content dynamic
+    import Employee model in views.py
+    inside view fn-
+        create a variable and assign the objs of Employee class
+        (i.e in var pass all rows of Employee table)
+        pass these objs to a dictionary as values to any named key
+        pass the dict to JsonResponse as argument
+We used django web module in jsonresponse not rest module---
+-------------------
+
+
+    

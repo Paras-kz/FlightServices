@@ -1,0 +1,37 @@
+B4 using serialization we were manually converting the model objects in json using Jonresponse.
+DRF gives us MODELSerializer to solve this
+
+-create SERIALIZATION-
+    create a <serializes.py> file in app dir.
+        from drf import <serializes>
+        import the model to be serialized
+
+        create any class xyz(serializers.ModelSerializer):
+            create class Meta:
+
+                and menttion which model is to be serialized
+
+-Create fn based view 
+    import all req models and serializer models,
+    from rest_framework.response import response
+
+    def an fn with request as parameter
+        <if request.method=="GET">
+            #in a var get all objects of Model class i.e. all students from db
+            #create any object 'abc' for xyz class (defnd in Serializer.py)
+             by passing all objects of Student class model 
+             
+        <elif request.method=="POST":>
+            create a serlzr object, give it json data (from http request) that it should de-
+            i.e it wiill create objects from the json data which came in htp request.
+            check if it is valid
+            save that object
+
+    use <@api_view> before defining fn
+
+    use 'def student_detail(request,pk):' when a primary key is also sent
+        <elif request.method=='PUT':>
+            #create a serializer obj and pass two param 
+            1. 'student' obj(with pk) and 
+            2. data with req.data
+            1 param data will be overwritten by 2

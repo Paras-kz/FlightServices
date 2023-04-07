@@ -1,0 +1,19 @@
+Wrappers-
+
+    Using views in rest api's
+
+    @api_view is a decorator that we use in function based view.
+    APIView is a class that is inherited by class based views.
+
+serialization-
+
+    the process of converting any model objects or query set into
+    json or any data format as client req. These ser. class are of two types-
+    -Serializer(serializer.serializer):
+        in this we hv to wredifine all variables of models class
+    -ModelnameSerializer(serializer.ModelSerializer):
+        in this we write a <class Meta:>
+            and <model=>modelname
+            <fields=>custom fields or
+            <fields=>__all_
+Mi
