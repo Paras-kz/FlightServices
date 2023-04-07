@@ -1,0 +1,23 @@
+Start Project & app-
+    django-admin startproject FlightServices 
+    cd to Prject folder- then: python manage.py startapp flightapp
+
+In settings.py-
+   add 'rest_framework','flightapp' in installed apps
+   change db to mysql
+
+Create Model Classes-
+    Flight,Passenger,Reservation with onetoOne field with other Classes
+
+Create Serializer Classes-
+
+Create classBased view/endpoints(by using viewset or mixins or generics)
+    import classes from Models, Serializers and viewset
+    Create endpoints i.e. viewset classes and assign 'queryset','serializer_class'
+
+Configure URLs-
+    for flightServices/flights, passengers, reservation we did throgh viewset router mthd
+
+Making custom Validator fn in required serializer class->(prototype below)
+    def validate_<variable name>:
+
