@@ -21,3 +21,42 @@ Configure URLs-
 Making custom Validator fn in required serializer class->(prototype below)
     def validate_<variable name>:
 
+Generating Authtoken-
+    In settings.py installed app
+       add 'rest_framework.authtoken' 
+
+       REST_FRAMEWORK={
+        'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.TokenAuthentication']
+       }
+    In urls.py-
+        from rest_framework.authtoken.views import obtain_auth_token
+
+        then we will create a url path that will call 'obtain_auth_token' function to generate auth
+    In views.py-
+        add permission class IsAuthenticated in our requred view.
+
+        now do makemigration- this will create a user_auth table in db
+    To create a user-
+        create superuser(admin) from this admin url create an user
+    To add Token to user
+        In admin go to Tokens- add token to req user.
+        in db token table a token will appear for that user
+    To retrieve this token in app/Postman-
+        hit the url for calling obtain_auth_token
+        it will ask for username and pass- go to body-raw-json and enter credentials in json format
+        hit send and it will give you token.
+    To test this tokem-
+        in view where we added IsAuthenticated permission class-
+            hit its url it will give you error
+            now copy the token we retreived go to headers- key= Authorisation, value= Token<space><token we copied>
+            hit send
+Automating Token Generation-
+    each time a user is saved a signal is sent to reciever(decorators) to execute the token
+    generation code for the created user- 
+    In models.py -
+        import post_save from signals,receiver, Token class, settings from, Configuration
+        def function for creating and assigning token to instance i.e. the user saved.
+
+
+
